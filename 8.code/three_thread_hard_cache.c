@@ -1,5 +1,5 @@
-/*三项成未加锁硬亲和力*/
-#include<pthread.h
+/*三线程未加锁硬亲和力*/
+#include<pthread.h>
 #include<sched.h>
 #include<stdlib.h>
 #include<stdio.h>
