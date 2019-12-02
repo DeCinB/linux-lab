@@ -1,4 +1,5 @@
 /*三线程未加锁程序*/
+/*三线程未加锁程序*/
 /*计算 apple 的值（add）分解为两个线程（计算a，计算b）*/
 #include <pthread.h>
 
@@ -19,7 +20,7 @@ struct apple
 };
 
 void* addx(void* x)
-{
+{	int sum;
     for(sum=0;sum<APPLE_MAX_VALUE;sum++)
     {
         ((struct apple *)x)->a += sum;
@@ -28,7 +29,7 @@ void* addx(void* x)
 }
  
 void* addy(void* y)
-{
+{	int sum;
     for(sum=0;sum<APPLE_MAX_VALUE;sum++)
     {
         ((struct apple *)y)->b += sum;
@@ -38,16 +39,16 @@ void* addy(void* y)
  
  
  
-int main (int argc, const char * argv[]) {
+int three_thread() {
     // insert code here...
-     struct apple test;
+    struct apple test;
     struct orange test1={{0},{0}};
     pthread_t ThreadA,ThreadB;
      
     pthread_create(&ThreadA,NULL,addx,&test);
     pthread_create(&ThreadB,NULL,addy,&test);
- 
-    for(index=0;index<ORANGE_MAX_VALUE;index++)
+ 	int sum;
+    for(int index=0;index<ORANGE_MAX_VALUE;index++)
     {
         sum+=test1.a[index]+test1.b[index];
     }

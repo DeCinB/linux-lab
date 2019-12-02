@@ -1,9 +1,8 @@
 /*Kbest测量程序*/
-/*Kbest测量程序*/
 #include<stdio.h>
 #include <sys/time.h>
 #include <unistd.h> 
-#include "three_thread_lock_cache.h"
+#include "three_thread_cache.h"
 
 #define K 10
 #define EP 0.02
@@ -25,14 +24,10 @@ int main(int argc, char const *argv[])
 
 	while(n<M){
 
-			gettimeofday(&begin,NULL);
-			
-			three_thread();
-			gettimeofday(&end,NULL);
+		gettimeofday(&begin,NULL);
+		three_thread_cache();
+		gettimeofday(&end,NULL);
 	
-
-		
-
 		used=MSECOND * (end.tv_sec - begin.tv_sec) + end.tv_usec - begin.tv_usec;
 		n++;
 		//printf("第%d次用时%lf微秒\n",n,used);
