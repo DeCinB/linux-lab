@@ -1,6 +1,15 @@
-/*两线程硬亲和力*/
-#include<pthread.h>
+/*两线程硬亲和力
+#include<stdlib.h>
+#include<stdio.h>
+#define __USE_GNU
+#include<sched.h>
+#include<pthread.h>        //<pthread.h>要在<sched.h>的后面
 
+#include<unistd.h>
+#include<sys/syscall.h>
+#define gettid() syscall(__NR_gettid)
+
+#define _GNU_SOURCE
 #define ORANGE_MAX_VALUE      1000000
 #define APPLE_MAX_VALUE       100000000
 #define MSECOND               1000000
@@ -16,7 +25,11 @@ struct orange
     int a[ORANGE_MAX_VALUE];
     int b[ORANGE_MAX_VALUE];        
 };
-         
+        
+int sum,sum1;
+int cpu_nums;
+cpu_set_t mask;
+
 inline int set_cpu(int i)
 {
     CPU_ZERO(&mask);
@@ -46,7 +59,7 @@ void* add(void* x)
         ((struct apple *)x)->a += sum;
         ((struct apple *)x)->b += sum;
     }   
-     
+    printf("apple:sum is %d.\n",sum);
     return NULL;
 }
      
@@ -54,6 +67,8 @@ int main (int argc, const char * argv[]) {
         // insert code here...
     struct apple test;
     struct orange test1;
+    int index;
+    pthread_t ThreadA;
      
     cpu_nums = sysconf(_SC_NPROCESSORS_CONF);
      
@@ -68,7 +83,7 @@ int main (int argc, const char * argv[]) {
     {
         sum+=test1.a[index]+test1.b[index];
     }       
-         
+    printf("orange:sum1 is %d.\n",sum1);     
     pthread_join(ThreadA,NULL);
          
     return 0;
