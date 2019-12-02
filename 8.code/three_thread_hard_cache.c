@@ -1,14 +1,15 @@
 /*三线程未加锁硬亲和力*/
-#include<pthread.h>
-#include<sched.h>
 #include<stdlib.h>
 #include<stdio.h>
-#include<sys/types.h>
-#include<sys/sysinfo.h>
-#include<unistd.h>
-#include<ctype.h>
 
-#define __USE_GNU 
+#define __USE_GNU
+#include<sched.h>
+#include<pthread.h>
+
+#include<unistd.h>
+#include<sys/syscall.h>
+#define gettid() syscall(__NR_gettid)
+
 #define ORANGE_MAX_VALUE      1000000
 #define APPLE_MAX_VALUE       100000000
 #define MSECOND               1000000
