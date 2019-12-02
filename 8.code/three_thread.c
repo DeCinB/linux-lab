@@ -1,5 +1,5 @@
 /*三线程未加锁程序*/
-/*计算 apple 的值（add）可以分解为两个线程（计算a，计算b）需要给apple加锁*/
+/*计算 apple 的值（add）分解为两个线程（计算a，计算b）*/
 #include <pthread.h>
 
 #define ORANGE_MAX_VALUE      1000000
@@ -14,32 +14,25 @@ struct orange
 };
 struct apple
 {
-     unsigned long long a;
+    unsigned long long a;
     unsigned long long b;
-    pthread_rwlock_t rwLock;        //读写锁（读写者模式），相比互斥量允许更高的并行性
 };
 
 void* addx(void* x)
 {
-    pthread_rwlock_wrlock(&((struct apple *)x)->rwLock);    //获取写入锁  
     for(sum=0;sum<APPLE_MAX_VALUE;sum++)
     {
         ((struct apple *)x)->a += sum;
     }
-    pthread_rwlock_unlock(&((struct apple *)x)->rwLock);    //释放锁
-     
     return NULL;
 }
  
 void* addy(void* y)
 {
-    pthread_rwlock_wrlock(&((struct apple *)y)->rwLock);
     for(sum=0;sum<APPLE_MAX_VALUE;sum++)
     {
         ((struct apple *)y)->b += sum;
-    }
-    pthread_rwlock_unlock(&((struct apple *)y)->rwLock);
-     
+    }  
     return NULL;
 }
  
