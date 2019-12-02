@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include <sys/time.h>
 #include <unistd.h> 
-#include "three_thread_cache.h"
+#include "two_thread_hard_cache.h"
 
 #define K 10
 #define EP 0.02
@@ -25,7 +25,7 @@ int main(int argc, char const *argv[])
 	while(n<M){
 
 		gettimeofday(&begin,NULL);
-		three_thread_cache();
+		two_thread_hard_cache();
 		gettimeofday(&end,NULL);
 	
 		used=MSECOND * (end.tv_sec - begin.tv_sec) + end.tv_usec - begin.tv_usec;

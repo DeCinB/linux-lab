@@ -1,35 +1,6 @@
+/*三项成未加锁硬亲和力*/
 /*三线程未加锁硬亲和力*/
-#include<stdlib.h>
-#include<stdio.h>
-
-#define __USE_GNU
-#include<sched.h>
-#include<pthread.h>
-
-#include<unistd.h>
-#include<sys/syscall.h>
-#define gettid() syscall(__NR_gettid)
-
-#define ORANGE_MAX_VALUE      1000000
-#define APPLE_MAX_VALUE       100000000
-#define MSECOND               1000000
-
-struct orange
-{
-    int a[ORANGE_MAX_VALUE];
-    int b[ORANGE_MAX_VALUE];
-};
-struct apple
-{
-    unsigned long long a;
-    char c[128];                //32,64,128或__attribute__((__aligned__(L1_CACHE_BYTES)))
-    unsigned long long b;
-};
-
-int sum,sum1;
-int cpu_nums;
-cpu_set_t mask;
-
+#include "three_thread_hard_cache.h"
 
 int set_cpu(int i)
 {
@@ -42,7 +13,7 @@ int set_cpu(int i)
          
         if(-1 == sched_setaffinity(gettid(),sizeof(&mask),&mask))   //绑定进程和CPU
         {
-            fprintf(stderr, "pthread_setaffinity_np erro\n");
+            //fprintf(stderr, "pthread_setaffinity_np erro\n");
             return -1;
         }
     }
@@ -76,7 +47,7 @@ void* addy(void* y)
     return NULL;
 }
 
-int main (int argc, const char * argv[]) {
+int three_thread_hard_cache () {
     // insert code here...
     struct apple test;
     struct orange test1={{0},{0}};
@@ -84,10 +55,14 @@ int main (int argc, const char * argv[]) {
   
     int cpu_nums = sysconf(_SC_NPROCESSORS_CONF);//获取cpu个数
 
+   /*if(-1 == set_cpu(1)){
+   		return NULL;
+   } 
+*/
     pthread_create(&ThreadA,NULL,addx,&test);
     pthread_create(&ThreadB,NULL,addy,&test);
 
-    for(index=0;index<ORANGE_MAX_VALUE;index++)
+    for(int index=0;index<ORANGE_MAX_VALUE;index++)
     {
         sum1 += test1.a[index]+test1.b[index];
     }

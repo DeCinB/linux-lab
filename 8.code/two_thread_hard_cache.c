@@ -1,5 +1,5 @@
 /*两线程硬亲和力*/
-#include "two_thread_hard.h"
+#include "two_thread_hard_cache.h"
 
 int set_cpu(int i)
 {
@@ -34,7 +34,7 @@ void* add(void* x)
     return NULL;
 }
      
-int two_thread_hard () {
+int two_thread_hard_cache() {
         // insert code here...
     struct apple test;
     struct orange test1;
