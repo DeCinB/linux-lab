@@ -26,8 +26,10 @@ struct apple
     unsigned long long b;
 };
 
+int sum,sum1;
+int cpu_nums;
 
-inline int set_cpu(int i)
+int set_cpu(int i)
 {
     cpu_set_t  mask;
   
@@ -48,7 +50,7 @@ inline int set_cpu(int i)
 
 void* addx(void* x)
 {
-    if(-1 == set_cpu(1))
+    if(-1 == set_cpu(0))
     {
         return NULL;
     } 
@@ -61,7 +63,7 @@ void* addx(void* x)
 }
 void* addy(void* y)
 {
-    if(-1 == set_cpu(2))
+    if(-1 == set_cpu(1))
     {
         return NULL;
     } 
@@ -79,17 +81,13 @@ int main (int argc, const char * argv[]) {
     pthread_t ThreadA,ThreadB;
   
     int cpu_nums = sysconf(_SC_NPROCESSORS_CONF);//获取cpu个数
-    if(-1 == set_cpu(0))
-    {
-        return -1;
-    } 
-  
+
     pthread_create(&ThreadA,NULL,addx,&test);
     pthread_create(&ThreadB,NULL,addy,&test);
 
     for(index=0;index<ORANGE_MAX_VALUE;index++)
     {
-        sum+=test1.a[index]+test1.b[index];
+        sum1 += test1.a[index]+test1.b[index];
     }
 
      pthread_join(ThreadA,NULL);
