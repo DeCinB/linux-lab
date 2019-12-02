@@ -1,3 +1,6 @@
+#include<stdlib.h>
+#include<stdio.h>
+
 #define ORANGE_MAX_VALUE      1000000 
 #define APPLE_MAX_VALUE       100000000 
 #define MSECOND               1000000 
@@ -16,19 +19,22 @@ int main (int argc, const char * argv[])
 {     
 	struct apple test;  
 	struct orange test1;    
+	int index，sum;
+		
 	for(sum=0;sum<APPLE_MAX_VALUE;sum++)  
 	{
 
 	   test.a += sum;   
 	   test.b += sum;  
 	}
-	
+	printf("apple:sum is %d\n",sum);
 	sum=0;  
 
 	for(index=0;index<ORANGE_MAX_VALUE;index++)
 	{
 	   sum += test1.a[index]+test1.b[index]; 
  	} 
- 
-    return 0; 
+        printf("orange:sum is %d\n",sum);
+        
+	return 0; 
  } 
