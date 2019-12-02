@@ -14,7 +14,7 @@ struct orange
 struct apple
 {
     unsigned long long a;
-    char c[128];  /*32,64,128*/
+    char c[128];                //32,64,128或__attribute__((__aligned__(L1_CACHE_BYTES)))
     unsigned long long b;
 };
 
