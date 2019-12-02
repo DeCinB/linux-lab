@@ -8,7 +8,6 @@ struct apple
      unsigned long long a;
     unsigned long long b;
 };
- 
 struct orange
 {
     int a[ORANGE_MAX_VALUE];
@@ -31,16 +30,16 @@ int main (int argc, const char * argv[]) {
         // insert code here...
     struct apple test;
     struct orange test1={{0},{0}};
-    pthread_t ThreadA;
+    pthread_t ThreadA;                           //线程标识符
          
-    pthread_create(&ThreadA,NULL,add,&test);
+    pthread_create(&ThreadA,NULL,add,&test);     //标识符，线程属性，执行函数，函数参数
          
     for(index=0;index<ORANGE_MAX_VALUE;index++)
     {
         sum += test1.a[index]+test1.b[index];
     }       
      
-     pthread_join(ThreadA,NULL);
+     pthread_join(ThreadA,NULL);                //等待线程结束（标识符，返回值），阻塞式
  
     return 0;
 }
