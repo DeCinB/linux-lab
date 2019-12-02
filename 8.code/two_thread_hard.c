@@ -9,7 +9,6 @@
 #include<sys/syscall.h>
 #define gettid() syscall(__NR_gettid)
 
-#define _GNU_SOURCE
 #define ORANGE_MAX_VALUE      1000000
 #define APPLE_MAX_VALUE       100000000
 #define MSECOND               1000000
@@ -30,7 +29,7 @@ int sum,sum1;
 int cpu_nums;
 cpu_set_t mask;
 
-inline int set_cpu(int i)
+int set_cpu(int i)
 {
     CPU_ZERO(&mask);
      
@@ -81,7 +80,7 @@ int main (int argc, const char * argv[]) {
                  
     for(index=0;index<ORANGE_MAX_VALUE;index++)
     {
-        sum+=test1.a[index]+test1.b[index];
+        sum1 += test1.a[index]+test1.b[index];
     }       
     printf("orange:sum1 is %d.\n",sum1);     
     pthread_join(ThreadA,NULL);
