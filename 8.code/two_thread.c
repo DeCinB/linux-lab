@@ -1,4 +1,4 @@
-#include "test.h"
+#include "two_thread.h"
 void* add(void* x)
 {       
 	int sum;
