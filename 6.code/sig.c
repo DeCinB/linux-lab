@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 
-#define EVENTSIG	323
+#define EVENTSIG 442
 
 int main(int argc, char ** argv)
 {
