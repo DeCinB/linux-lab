@@ -21,9 +21,7 @@ struct orange
     int b[ORANGE_MAX_VALUE];        
 };
         
-int sum,sum1;
-int cpu_nums;
-cpu_set_t mask;
+
 int set_cpu(int i);
 void* add(void* x);
 int two_thread_hard () ;
