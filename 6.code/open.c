@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define EVENTOPEN 320
+#define EVENTOPEN 439
 
 int main(int argc, char ** argv)
 {
