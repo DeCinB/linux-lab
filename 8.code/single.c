@@ -1,6 +1,6 @@
 #include "single.h"
 
-int test()
+int single()
 {     
 	struct apple test;  
 	struct orange test1;    
