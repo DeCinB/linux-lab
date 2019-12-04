@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define EVENTWAIT	322
+#define EVENTWAIT 441
 
 
 int main(int argc, char ** argv)
