@@ -1,9 +1,9 @@
-/*三项成未加锁硬亲和力*/
 /*三线程未加锁硬亲和力*/
 #include "three_thread_hard_cache.h"
 
 int set_cpu(int i)
 {
+    int cpu_nums = sysconf(_SC_NPROCESSORS_CONF);//获取cpu个数
     cpu_set_t  mask;
   
     CPU_ZERO(&mask);  //宏函数，对CPU集mask进行初始化将其设置为空集
@@ -23,6 +23,7 @@ int set_cpu(int i)
 
 void* addx(void* x)
 {
+    int sum;
     if(-1 == set_cpu(0))
     {
         return NULL;
@@ -36,6 +37,7 @@ void* addx(void* x)
 }
 void* addy(void* y)
 {
+    int sum;
     if(-1 == set_cpu(1))
     {
         return NULL;
@@ -48,23 +50,22 @@ void* addy(void* y)
 }
 
 int three_thread_hard_cache () {
-    // insert code here...
+    int sum;
     struct apple test;
     struct orange test1={{0},{0}};
     pthread_t ThreadA,ThreadB;
   
-    int cpu_nums = sysconf(_SC_NPROCESSORS_CONF);//获取cpu个数
-
-   if(-1 == set_cpu(2)){
-   		return -1;
-   } 
+    if(-1 == set_cpu(2)){
+   	return -1;
+  
+    } 
 
     pthread_create(&ThreadA,NULL,addx,&test);
     pthread_create(&ThreadB,NULL,addy,&test);
 
     for(int index=0;index<ORANGE_MAX_VALUE;index++)
     {
-        sum1 += test1.a[index]+test1.b[index];
+        sum += test1.a[index]+test1.b[index];
     }
 
      pthread_join(ThreadA,NULL);
