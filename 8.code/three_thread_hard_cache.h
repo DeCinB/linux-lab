@@ -25,9 +25,7 @@ struct apple
     unsigned long long b;
 };
 
-int sum,sum1;
-int cpu_nums;
-cpu_set_t mask;
+
 int set_cpu(int i);
 void* addx(void* x);
 void* addy(void* y);
