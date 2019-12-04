@@ -3,6 +3,10 @@
 
 int set_cpu(int i)
 {
+    int cpu_nums;
+    cpu_set_t mask;
+    
+    cpu_nums = sysconf(_SC_NPROCESSORS_CONF);
     CPU_ZERO(&mask);
      
     if(2 <= cpu_nums)
@@ -20,6 +24,7 @@ int set_cpu(int i)
      
 void* add(void* x)
 {
+    int sum;
     if(-1 == set_cpu(1))
     {
         return NULL;
@@ -30,18 +35,16 @@ void* add(void* x)
         ((struct apple *)x)->a += sum;
         ((struct apple *)x)->b += sum;
     }   
-    //printf("apple:sum is %d.\n",sum);
+
     return NULL;
 }
      
 int two_thread_hard () {
-        // insert code here...
+    int sum;
     struct apple test;
     struct orange test1;
     int index;
     pthread_t ThreadA;
-     
-    cpu_nums = sysconf(_SC_NPROCESSORS_CONF);
      
     if(-1 == set_cpu(0))
     {
@@ -52,9 +55,9 @@ int two_thread_hard () {
                  
     for(index=0;index<ORANGE_MAX_VALUE;index++)
     {
-        sum1 += test1.a[index]+test1.b[index];
+        sum += test1.a[index]+test1.b[index];
     }       
-    //printf("orange:sum1 is %d.\n",sum1);     
+
     pthread_join(ThreadA,NULL);
          
     return 0;
