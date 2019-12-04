@@ -15,4 +15,4 @@ struct orange {
     int b[ORANGE_MAX_VALUE];   
 }; 
 
-int test();
+int single();
