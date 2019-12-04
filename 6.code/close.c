@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define EVENTCLOSE	321
+#define EVENTCLOSE 440
 
 int main(int argc, char ** argv)
 {
